@@ -1,0 +1,85 @@
+from flask import Flask, request
+from datetime import datetime
+
+app = Flask(_name_)
+
+@app.route('/')
+def home():
+        return"""
+            <html><body>
+                <h2>Welcome to the Club</h2>
+                <form action = "/greet">
+                    What's your name? <input type ='text' name= 'username'><br>
+                    What's your characteristic? <input type ='text' name='cha'><br>
+                    <input type = 'submit' value = 'Continue'>
+                </form>
+                </body></html>
+                """
+
+@app.route('/greet')
+def greet ():
+    username = request.args.get('username','World')
+    cha = request.args['cha']
+    if cha == '':
+        msg ='You did not tell me your characteristic.'
+    else:
+        msg =username+ ' is ' + cha
+    return"""
+        <html><body>
+            <h2>Hello!</h2>
+            {0}
+        </body></html>
+        
+        <html><body>
+                <form action = "/nxt">
+                    What's your fave food? <input type ='text' name= 'favef'><br>
+                    What's your hobby? <input type ='text' name= 'hob'><br>
+                    <input type = 'submit' value = 'Continue'>
+                </form>
+                </body></html>
+        """.format( msg)
+
+@app.route('/nxt')
+def nxt():
+    favef = request.args['favef']
+    hob = request.args['hob']
+    if favef == '':
+        msg ='You did not tell me your favefood.'
+    else:
+        msg = 'Nice! your favefood is ' + favef + ' and your hobby is ' + hob
+    return"""
+    <html><body>
+    		<h1>Know you better</h1>
+            <h1> {0}!</h1>
+            <form action= "/scrn">
+        <input type= 'submit' value=Continue'>
+        </body></html>
+        """.format(msg)
+ 
+        
+@app.route('/scrn')
+def scrn():
+	return"""   
+        <html><body>
+                <form action = "/wew">
+                    Where are you from? <input type ='text' name= 'pla'><br>
+                    <input type = 'submit' value = 'Continue'>
+                </form>
+                </body></html>
+        """
+        
+@app.route ('/wew')
+def wew ():
+    pla = request.args['pla']
+    if pla == '':
+        msg ='You did not tell me where you from:<.'
+    else:
+        msg =pla + ' is a nice place'
+    return"""
+        <html><body>
+            <h1>{0}</h1>
+        </body></html>
+        """.format(msg)
+
+#Lunch the FlaskPy dev server
+app.run(host="localhost", debug=True)
