@@ -1,0 +1,66 @@
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+        return"""
+            <html><body>
+            <style>      
+          
+            h1{ color: 	#6F4E37;}
+            body{color: #6F4E37; font-size: 40px }
+            
+            input[type=submit] {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 15px 0;
+            box-sizing: border-box;
+            background-color: #C19A6B;
+            }
+            input[type=text] {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 15px 0;
+            box-sizing: border-box;
+            background-color: #C19A6B;
+            }
+            
+            
+            </style>
+                <h1>Welcome to Tea-mpla </h1>
+                <form action = "/greet">
+                What's your name?<br> <input type ='text' name= 'username'><br>
+                    <label for="cars">Choose Drinks:</label>
+                        <select name="Drinks" id="Drinks">
+                        <option value="Coffee">Coffee</option>
+                        <option value="Iced Coffee">Iced Coffee</option>
+                        <option value="Tea">Tea</option>
+                        <option value="Milk Tea">Milk Tea</option>
+                        </select><br>
+                <input type="radio" id="html" name="drinks" value="drinks">
+                <label for="html">Dine-in</label><br>
+                <input type="radio" id="html" name="drinks" value="drinks">
+                <label for="html">Take-out</label><br>
+                
+                    <input type = 'submit' value = 'Continue'>
+                </form>
+                </body></html>
+                """
+
+@app.route('/greet')
+def greet ():
+    username = request.args.get('username', 'World')
+    Drinks = request.args['Drinks']
+    if Drinks == '':
+        msg ='you dont have any order.'
+    else:
+        msg = 'Enjoy your ' + Drinks +' '+ username
+    return"""
+        <html><body>
+            <h1 style="color: 	#6F4E37; font-size: 40px" > Thank You!<br>{0}</h1>
+        </body></html>
+        """.format(msg)
+
+#Lunch the FlaskPy dev server
+app.run(host = "localhost", debug=True)
