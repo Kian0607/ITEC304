@@ -82,4 +82,4 @@ def wew ():
         """.format(msg)
 
 #Lunch the FlaskPy dev server
-app.run(host="localhost", debug=True
+app.run(host="localhost", debug=True)
