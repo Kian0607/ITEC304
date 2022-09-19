@@ -1,0 +1,50 @@
+from flask import Flask, request
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    return """
+            <html><body>
+            <div>
+                <h1 style= "font-size: 55px;">Welcome to Pet Care</h1>
+                <form action = "/greet">
+                <table style= "font-size: 25px;">
+                    <tr>
+                        <th>Dog </th>
+                        <th>Cat </th>
+                    </tr>
+                    <tr>
+                        <td>Husky </td>
+                        <td>Domestic </td>
+                    </tr>
+                    <tr>
+                        <td>Korgi</td>
+                        <td>Persian</td>
+                     </tr>
+                    </table><br>
+                    CHOOSE PET <input style= "font-size: 20px;" type ='text' name= 'pet'>
+                    <br>
+                    <input style= "font-size: 30px;" type = 'submit' value = 'Continue'>
+                </form>
+                <div></body></html>
+                """
+
+
+@app.route('/greet')
+def greet():
+    pet = request.args.get('pet', 'World')
+    if pet == '':
+        msg = 'DONT LIKE FUR BABIES?'
+    else:
+        msg = pet + ' is a cute fur baby.'
+    return """
+        <html><body>
+            <h1>{0}</h1>
+
+        </body></html>
+        """.format(msg)
+
+
+app.run(host="localhost", debug=True)
