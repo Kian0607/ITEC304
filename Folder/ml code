@@ -1,0 +1,44 @@
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+        return"""
+            <html><body>
+            <style>
+            div {text-align: center; font-size: 40px;}
+            body{
+            </style>
+            <div>
+                <h1>Welcome to Mobile Legends</h1>
+                <form action = "/greet">
+                <ul style="list-style-type:none;">
+                <li style= "font-size: 40px;">Balmond</li>
+                <li style= "font-size: 40px;">Nana</li>
+                <li style= "font-size: 40px;">Miya</li>
+                <li style= "font-size: 40px;">Layla</li>
+                <li style= "font-size: 40px;">Angela</li>
+                </ul>
+                    Who is your Favorite Hero in the list? <input style= "font-size: 30px;" type ='text' name= 'hero'>
+                    <br>
+                    <input style= "font-size: 40px;" type = 'submit' value = 'Continue'>
+                </form>
+                <div></body></html>
+                """
+
+@app.route('/greet')
+def greet ():
+    hero = request.args.get('hero','World')
+    if hero == '':
+        msg ='Your hero is not on the list?'
+    else:
+        msg = hero + ' is a great hero.'
+    return"""
+        <html><body>
+            <h1>{0}</h1>
+            
+        </body></html>
+        """.format( msg)
+
+app.run(host = "localhost", debug=True)
